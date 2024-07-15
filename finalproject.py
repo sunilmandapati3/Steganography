@@ -1,102 +1,62 @@
-<!DOCTYPE html>
-<!-- saved from url=(0071)https://github.com/udaytarini123/stegnography/blob/main/finalproject.py -->
-<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark" data-a11y-animated-images="system" data-a11y-link-underlines="true" data-turbo-loaded=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">.turbo-progress-bar {
-  position: fixed;
-  display: block;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: #0076ff;
-  z-index: 2147483647;
-  transition:
-    width 300ms ease-out,
-    opacity 150ms 150ms ease-in;
-  transform: translate3d(0, 0, 0);
-}
-</style>
-    
-  
-  
-  
-  
-  
-  
 
-  
+import cv2
+import hashlib
+import os
+d = {chr(i): i for i in range(255)}
+c = {i: chr(i) for i in range(255)}
 
-  <link crossorigin="anonymous" media="all" rel="stylesheet" href="./finalproject_files/light-efd2f2257c96.css"><link crossorigin="anonymous" media="all" rel="stylesheet" href="./finalproject_files/dark-6b1e37da2254.css"><link data-color-theme="dark_dimmed" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_dimmed-aa16bfa90fb8.css"><link data-color-theme="dark_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_high_contrast-f4daad25d8cf.css"><link data-color-theme="dark_colorblind" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_colorblind-a4629b2e906b.css"><link data-color-theme="light_colorblind" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_colorblind-afcc3a6a38dd.css"><link data-color-theme="light_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_high_contrast-79bca7145393.css"><link data-color-theme="light_tritanopia" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_tritanopia-fe4137b54b26.css"><link data-color-theme="dark_tritanopia" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_tritanopia-1911f0cf0db4.css">
-    <link crossorigin="anonymous" media="all" rel="stylesheet" href="./finalproject_files/primer-primitives-8500c2c7ce5f.css">
-    <link crossorigin="anonymous" media="all" rel="stylesheet" href="./finalproject_files/primer-fbdbeff9329d.css">
-    <link crossorigin="anonymous" media="all" rel="stylesheet" href="./finalproject_files/global-4ff23c0615da.css">
-    <link crossorigin="anonymous" media="all" rel="stylesheet" href="./finalproject_files/github-c62b650ef489.css">
-  <link crossorigin="anonymous" media="all" rel="stylesheet" href="./finalproject_files/repository-7247b57543b3.css">
-<link crossorigin="anonymous" media="all" rel="stylesheet" href="./finalproject_files/code-68246ade0881.css">
+# Reading the image
+x = cv2.imread(r"C:\Users\manikanta\OneDrive\Desktop\New folder\steganograpy.jpeg")
+i, j, k = x.shape
+print(i, j, k)
 
-  
+# Input security key and text to hide
+key = input("\nEnter key to edit (Security Key): ")
+text = input("\nEnter text to hide:")
 
+# Initialize variables
+k1 = 0
+n, m, z = 0, 0, 0
+l = len(text)
 
-  <script type="application/json" id="client-env">{"locale":"en","featureFlags":["code_vulnerability_scanning","copilot_chat_static_thread_suggestions","copilot_conversational_ux_history_refs","copilot_followup_to_agent","copilot_smell_icebreaker_ux","copilot_implicit_context","copilot_stop_response","failbot_handle_non_errors","geojson_azure_maps","ghost_pilot_vnext","ghost_pilot_rai_safety_clause","marketing_forms_api_integration_contact_request","marketing_pages_search_explore_provider","repository_suggester_elastic_search","turbo_experiment_risky","sample_network_conn_type","react_start_transition_for_navigations","custom_inp","remove_child_patch","nested_list_view_dnd","issues_react_is_read","kb_source_repos","filter_prefetch_suggestions","copilot_beta_features_opt_in"]}</script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/wp-runtime-672d1701ceca.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_dompurify_dist_purify_js-810e4b1b9abd.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_oddbird_popover-polyfill_dist_popover_js-4ac41d0a76fd.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_mini-throttle_dist_index_js-node_modules_smoothscroll-polyfill_di-75db2e-e091a6d939e9.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/environment-041d6b79df7b.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_behaviors_dist_esm_focus-zone_js-03bcda509ec9.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_selector-observer_dist_index_esm_js-9f960d9b217c.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_auto-complete-element_dist_index_js-node_modules_github_details-d-ed9a97-dfdebffa4a55.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_text-expander-element_dist_index_js-19ce25503c82.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_mini-throttle_dist_index_js-node_modules_delegated-events_dist_in-af795d-767d6f041dd5.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_filter-input-element_dist_index_js-node_modules_github_remote-inp-b7d8f4-6e6f83bcc978.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_catalyst_lib_index_js-node_modules_github_clipboard-copy-element_-782ca5-14181f295dc0.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_file-attachment-element_dist_index_js-node_modules_primer_view-co-15cdfa-fdfdefb25b02.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/app_assets_modules_github_onfocus_ts-ui_packages_trusted-types-policies_policy_ts-ui_packages-6fe316-88898a485083.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/github-elements-41a524cdc4d4.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/element-registry-b2c56fd17c6b.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_catalyst_lib_index_js-node_modules_github_hydro-analytics-client_-7901e7-f8af173502c4.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_braintree_browser-detection_dist_browser-detection_js-node_modules_stack-68835d-59206c834a41.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_lit-html_lit-html_js-cc7cb714ead5.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_mini-throttle_dist_index_js-node_modules_morphdom_dist_morphdom-e-7c534c-38ef9cb819da.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_turbo_dist_turbo_es2017-esm_js-1cea0f5eff45.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_remote-form_dist_index_js-node_modules_delegated-events_dist_inde-893f9f-880ac2bbb719.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_scroll-anchoring_dist_scroll-anchoring_esm_js-node_modules_github_hotkey-1a1d91-56e858031112.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_color-convert_index_js-cdd1e82b3795.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_behaviors_dist_esm_dimensions_js-node_modules_github_jtml_lib_index_js-b1947a1d4855.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_session-resume_dist_index_js-node_modules_primer_behaviors_dist_e-da6ec6-77ce2f267f4e.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_quote-selection_dist_index_js-node_modules_github_textarea-autosi-9e0349-7c78ee755ad3.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/app_assets_modules_github_updatable-content_ts-2f269ce0df34.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/app_assets_modules_github_behaviors_task-list_ts-app_assets_modules_github_onfocus_ts-app_ass-421cec-4b1b14b7b7e3.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/app_assets_modules_github_sticky-scroll-into-view_ts-05b0b933db0c.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/app_assets_modules_github_behaviors_ajax-error_ts-app_assets_modules_github_behaviors_include-467754-558672090412.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/app_assets_modules_github_behaviors_commenting_edit_ts-app_assets_modules_github_behaviors_ht-83c235-2939a5dbf29b.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/app_assets_modules_github_blob-anchor_ts-app_assets_modules_github_filter-sort_ts-app_assets_-6deafe-ba6b1a674c75.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/behaviors-69db272bc622.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_delegated-events_dist_index_js-node_modules_github_catalyst_lib_index_js-06ff531-2ea61fcc9a71.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/notifications-global-c65a9d55f5bb.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_virtualized-list_es_index_js-node_modules_github_template-parts_lib_index_js-878844713bc9.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_remote-form_dist_index_js-node_modules_delegated-events_dist_inde-e53a3f-dae7d2c92a46.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/app_assets_modules_github_ref-selector_ts-71e52efb65a6.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/codespaces-8d70106d1cd1.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_file-attachment-element_dist_index_js-node_modules_github_filter--0879fe-e212454b06b8.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/app_assets_modules_github_repositories_get-repo-element_ts-44579c43c8c5.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/repositories-dd9c1be98d56.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_mini-throttle_dist_index_js-node_modules_github_catalyst_lib_inde-dbbea9-bac2d7b04358.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/code-menu-6c10c0b19d08.js.download"></script>
-  
-    <script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/react-lib-a89cbd87a1e0.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_github_mini-throttle_dist_index_js-node_modules_primer_octicons-react_di-b40d97-9b98c5140e22.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_react_lib-esm_Box_Box_js-5a335cbe71ad.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_react_lib-esm_Button_Button_js-83e3876ae2f4.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_react_lib-esm_TooltipV2_Tooltip_js-bf3e8e618a5c.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_clsx_dist_clsx_m_js-node_modules_primer_react_node_modules_primer_octico-c56103-69406d13de9c.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_react_lib-esm_ActionList_index_js-71451907bb28.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_react_lib-esm_Text_Text_js-node_modules_primer_react_lib-esm_Text-75483c-22ff642633ec.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_react_lib-esm_ActionMenu_ActionMenu_js-node_modules_primer_react_-5b2420-de3627095d51.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_react_lib-esm_FormControl_FormControl_js-834a6a5993af.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/vendors-node_modules_primer_react_lib-esm_SelectPanel_SelectPanel_js-84ec020d6084.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/ui_packages_react-core_create-browser-history_ts-ui_packages_safe-storage_safe-storage_ts-ui_-682c2c-be6bcd0afcc8.js.download"></script>
-<script crossorigin="anonymous" defer="defer" type="application/javascript" src="./finalproject_files/notifications-subscriptions-menu-518a58506237.js.download"></script>
-<link crossorigin="anonymous" media="all" rel="stylesheet" href="./finalproject_files/notifications-subscriptions-menu.572fff1cb5c3caef1ac9.module.css">
+# Encode text into the image
+for i in range(l):
+    x[n, m, z] = d[text[i]] ^ d[key[k1]]
+    z = (z + 1) % 3
+    if z == 0:
+        m = (m + 1) % j
+        if m == 0:
+            n = (n + 1) % i
+    k1 = (k1 + 1) % len(key)
 
+# Save the encrypted image
+cv2.imwrite("encrypted_img.jpg", x)
+os.startfile("encrypted_img.jpg")
+print("Data Hiding in Image completed successfully.")
+
+# Initialize variables for decoding
+k1 = 0
+n, m, z = 0, 0, 0
+
+# Prompt to unhide text
+ch = int(input("\nEnter 1 To Unhide The Text: "))
+if ch == 1:
+    key1 = input("\nEnter Secret key To Unhide The Text: ")
+    decrypt = ""
+    if key == key1:
+        for i in range(l):
+            decrypt += c[x[n, m, z] ^ d[key[k1]]]
+            z = (z + 1) % 3
+            if z == 0:
+                m = (m + 1) % j
+                if m == 0:
+                    n = (n + 1) % i
+            k1 = (k1 + 1) % len(key)
+        print("The Secret Message is:", decrypt)
+    else:
+        print("Check your key!!!!")
+else:
+    print("Don't Want To Unhide The Text, Ok Then Bye!!!!")
 
   
 
